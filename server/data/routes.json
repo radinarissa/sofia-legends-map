@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "podzemiyata-na-vlastta",
+    "title": "Подземията на властта",
+    "description": "Нощна разходка над тунелите под центъра. Започва от мястото на най-кървавия атентат в историята на България и минава покрай древната Сердика, бившия Партиен дом и мястото на мавзолея, който не искаше да падне.",
+    "travelMode": "walking",
+    "durationMinutes": 60,
+    "bestTime": "след залез",
+    "legends": [
+      "sveta-nedelya-padnaliyat-kupol",
+      "obshtestvoto-v-tunelite",
+      "tunelite-na-vlastta",
+      "zagadkite-na-rotondata",
+      "mavzoleyat-koyto-ne-iskashe-da-padne",
+      "tainata-vrata-malko-tarnovo"
+    ]
+  },
+  {
+    "slug": "ot-lavovete-do-orlite",
+    "title": "От лъвовете до орлите",
+    "description": "Разходка през стара София, от северната до източната граница на някогашния център. Минава покрай горещите извори, Градската градина и жълтите павета.",
+    "travelMode": "walking",
+    "durationMinutes": 90,
+    "bestTime": "привечер",
+    "legends": [
+      "lavov-most-bez-ezitsi",
+      "zhivata-voda-na-serdika",
+      "orkestarat-ot-titanik",
+      "bebeto-na-naroden-teatar",
+      "zhaltite-paveta",
+      "hramat-na-zevs-doktorska-gradina",
+      "orlite-na-orlov-most"
+    ]
+  },
+  {
+    "slug": "prizratsite-na-sotsializma",
+    "title": "Призраците на социализма",
+    "description": "От Борисовата градина до бункера в края на Южния парк. Маршрут за паметниците, които се разпаднаха, боядисаха или изчезнаха, и за подземията, в които уж се чуват викове.",
+    "travelMode": "walking",
+    "durationMinutes": 120,
+    "bestTime": "по здрач",
+    "legends": [
+      "taynite-na-borisovata-gradina",
+      "supergeroite-ot-pametnika",
+      "pametnikat-koyto-se-razpadna",
+      "ndk-i-lyudmila-zhivkova",
+      "bunkerat-do-yuzhniya-park"
+    ]
+  },
+  {
+    "slug": "pod-vitosha",
+    "title": "Под Витоша",
+    "description": "Еднодневен излет от царската чешма в Княжево през лицата в Боянската църква до Черни връх, където според легендата паднала Вита.",
+    "travelMode": "transit",
+    "durationMinutes": 480,
+    "bestTime": "през деня",
+    "legends": [
+      "tsarskata-cheshma-v-knyazhevo",
+      "litsata-v-boyanskata-tsarkva",
+      "vita-i-lyulin"
+    ]
+  }
+]
