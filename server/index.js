@@ -1,14 +1,15 @@
-require("dotenv").config(); 
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+
+const legendRoutes = require("./routes/legends");
+const { notFound, errorHandler } = require("./middleware/errorHandler");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-const legendRoutes = require("./routes/legends");
-app.use("/api/legends", legendRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({
@@ -16,6 +17,11 @@ app.get("/api/health", (req, res) => {
     database: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
   });
 });
+
+app.use("/api/legends", legendRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
