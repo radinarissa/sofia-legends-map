@@ -5,7 +5,8 @@
   "scripts": {
   "start": "node index.js",
   "dev": "nodemon index.js",
-  "validate": "node scripts/validate-data.js"
+  "validate": "node scripts/validate-data.js",
+  "seed": "node scripts/seed.js"
   },
   "keywords": [],
   "author": "",
