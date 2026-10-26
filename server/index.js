@@ -7,6 +7,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+const legendRoutes = require("./routes/legends");
+app.use("/api/legends", legendRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({
