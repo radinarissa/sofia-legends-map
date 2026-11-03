@@ -4,6 +4,14 @@ const { CATEGORIES, ERAS, CREDIBILITY } = require("../constants");
 
 const router = express.Router();
 
+const SORT_OPTIONS = {
+  title: { title: 1 }, 
+  "-title": { title: -1 }, 
+  scariness: { scariness: 1, title: 1 }, 
+  "-scariness": { scariness: -1, title: 1 }, 
+  newest: { createdAt: -1, _id: -1 },
+};
+
 router.get("/", async (req, res, next) => {
   try {
     const filter = { status: "approved" };
@@ -25,6 +33,7 @@ router.get("/", async (req, res, next) => {
         filter[field] = { $in: values };
       }
     }
+
     if (req.query.district) {
       filter.district = String(req.query.district);
     }
@@ -45,10 +54,18 @@ router.get("/", async (req, res, next) => {
       filter.$or = [{ title: regex }, { shortDescription: regex }, { address: regex }];
     }
 
+    const sortKey = req.query.sort ? String(req.query.sort) : "title";
+    const sort = SORT_OPTIONS[sortKey];
+    if (!sort) {
+      return res.status(400).json({
+        message: `Невалидна стойност за sort: ${sortKey}. Позволени: ${Object.keys(SORT_OPTIONS).join(", ")}`,
+      });
+    }
+
     const legends = await Legend.find(filter)
       .select("-fullStory -sources -__v") 
       .collation({ locale: "bg" }) 
-      .sort({ title: 1 });
+      .sort(sort);
 
     res.json(legends);
   } catch (err) {
