@@ -21,3 +21,40 @@
 ## Структура
 - `client/` – React приложението
 - `server/` – Express API
+
+## API
+
+Сървърът работи на `http://localhost:5000`.
+
+| Метод | Адрес | Описание |
+|---|---|---|
+| GET | `/api/health` | Проверка дали сървърът и базата работят |
+| GET | `/api/legends` | Всички одобрени легенди (без пълния текст) |
+| GET | `/api/legends/districts` | Списък с районите, в които има легенди |
+| GET | `/api/legends/:slug` | Една легенда с цялата история |
+
+### Параметри на `GET /api/legends`
+
+Всички параметри са по избор и могат да се комбинират.
+
+| Параметър | Пример | Описание |
+|---|---|---|
+| `category` | `?category=tunnels,ghosts` | Една или няколко категории, разделени със запетая |
+| `era` | `?era=socialism` | Една или няколко епохи |
+| `credibility` | `?credibility=confirmed` | Достоверност: `confirmed`, `partial`, `legend` |
+| `district` | `?district=Център` | Район |
+| `minScary`, `maxScary` | `?minScary=3&maxScary=5` | Страшност от 1 до 5 |
+| `q` | `?q=мост` | Търсене в заглавието, описанието и адреса |
+| `sort` | `?sort=-scariness` | Подреждане: `title`, `-title`, `scariness`, `-scariness`, `newest` |
+
+При невалидна стойност сървърът връща грешка `400` със списък на позволените стойности.
+
+### Стартиране на сървъра
+
+```bash
+cd server
+npm install
+cp .env.example .env   # попълнете MONGODB_URI
+npm run seed           # зарежда началните легенди
+npm run dev
+```
