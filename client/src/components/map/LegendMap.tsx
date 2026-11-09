@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import type { LegendSummary } from "../../types/legend";
+import LegendMarker from "./LegendMarker";
 
 const SOFIA_CENTER: [number, number] = [42.6977, 23.3219];
 
@@ -16,8 +17,9 @@ export default function LegendMap({ legends }: LegendMapProps) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {}
-        {legends.length === 0 && null}
+        {legends.map((legend) => (
+          <LegendMarker key={legend._id} legend={legend} />
+        ))}
       </MapContainer>
     </div>
   );
