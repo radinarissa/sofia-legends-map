@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import App from "./App";
 import { theme } from "./theme";
+import "leaflet/dist/leaflet.css";
 import "./index.css";
 
 const queryClient = new QueryClient({

@@ -60,3 +60,15 @@
     font-weight: 700;
   }
 }
+
+.leaflet-container {
+  font-family: var(--ink-font-body);
+}
+
+.leaflet-container a {
+  color: var(--ink-accent);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: var(--ink-radius);
+}
