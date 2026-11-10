@@ -6,6 +6,7 @@ import { countActiveFilters } from "../../utils/filters";
 import MultiSelectFilter from "./MultiSelectFilter";
 import DistrictFilter from "./DistrictFilter";
 import ScarinessSlider from "./ScarinessSlider";
+import SearchBar from "./SearchBar";
 
 interface FilterPanelProps {
   filters: LegendFilters;
@@ -19,6 +20,9 @@ export default function FilterPanel({ filters, onChange, onReset }: FilterPanelP
   return (
     <div className="flex flex-col gap-4">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="md:col-span-2">
+          <SearchBar value={filters.q ?? ""} onChange={(q) => update({ q: q || undefined })} />
+        </div>
         <DistrictFilter value={filters.district} onChange={(district) => update({ district })} />
         <MultiSelectFilter
           id="filter-category"

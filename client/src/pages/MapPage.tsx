@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { LinearProgress } from "@mui/material";
 import type { LegendFilters } from "../types/legend";
 import useGetLegends from "../hooks/legends/useGetLegends";
+import useDebounce from "../hooks/common/useDebounce";
 import LegendMap from "../components/map/LegendMap";
 import LegendList from "../components/legends/LegendList";
 import FilterPanel from "../components/filters/FilterPanel";
@@ -9,7 +11,9 @@ import ErrorMessage from "../components/common/ErrorMessage";
 
 export default function MapPage() {
   const [filters, setFilters] = useState<LegendFilters>({});
-  const { data: legends = [], isPending, isError, error, refetch } = useGetLegends(filters);
+
+  const debouncedFilters = useDebounce(filters, 300);
+  const { data: legends = [], isPending, isFetching, isError, error, refetch } = useGetLegends(debouncedFilters);
 
   return (
     <div className="flex flex-col gap-6">
@@ -23,6 +27,9 @@ export default function MapPage() {
       <section className="ink-card p-4 md:p-5" aria-label="Филтри">
         <FilterPanel filters={filters} onChange={setFilters} onReset={() => setFilters({})} />
       </section>
+
+      {}
+      <div className="-my-4 h-1">{isFetching && !isPending && <LinearProgress />}</div>
 
       {isPending && <Loader text="Зареждаме легендите..." />}
 
