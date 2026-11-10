@@ -1,11 +1,15 @@
+import { useState } from "react";
+import type { LegendFilters } from "../types/legend";
 import useGetLegends from "../hooks/legends/useGetLegends";
 import LegendMap from "../components/map/LegendMap";
 import LegendList from "../components/legends/LegendList";
+import FilterPanel from "../components/filters/FilterPanel";
 import Loader from "../components/common/Loader";
 import ErrorMessage from "../components/common/ErrorMessage";
 
 export default function MapPage() {
-  const { data: legends = [], isPending, isError, error, refetch } = useGetLegends();
+  const [filters, setFilters] = useState<LegendFilters>({});
+  const { data: legends = [], isPending, isError, error, refetch } = useGetLegends(filters);
 
   return (
     <div className="flex flex-col gap-6">
@@ -15,6 +19,10 @@ export default function MapPage() {
           {isPending ? "Търсим легендите из града..." : `${legends.length} легенди из София и околностите`}
         </p>
       </header>
+
+      <section className="ink-card p-4 md:p-5" aria-label="Филтри">
+        <FilterPanel filters={filters} onChange={setFilters} onReset={() => setFilters({})} />
+      </section>
 
       {isPending && <Loader text="Зареждаме легендите..." />}
 
