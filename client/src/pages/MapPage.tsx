@@ -1,5 +1,6 @@
 import useGetLegends from "../hooks/legends/useGetLegends";
 import LegendMap from "../components/map/LegendMap";
+import LegendList from "../components/legends/LegendList";
 import Loader from "../components/common/Loader";
 import ErrorMessage from "../components/common/ErrorMessage";
 
@@ -21,7 +22,14 @@ export default function MapPage() {
         <ErrorMessage title="Не успяхме да заредим легендите" error={error} onRetry={() => refetch()} />
       )}
 
-      {!isPending && !isError && <LegendMap legends={legends} />}
+      {!isPending && !isError && (
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
+          <LegendMap legends={legends} />
+          <div className="lg:max-h-[560px] lg:overflow-y-auto lg:pr-2">
+            <LegendList legends={legends} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
