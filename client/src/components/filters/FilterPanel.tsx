@@ -7,6 +7,7 @@ import MultiSelectFilter from "./MultiSelectFilter";
 import DistrictFilter from "./DistrictFilter";
 import ScarinessSlider from "./ScarinessSlider";
 import SearchBar from "./SearchBar";
+import SortSelect from "./SortSelect";
 
 interface FilterPanelProps {
   filters: LegendFilters;
@@ -24,6 +25,8 @@ export default function FilterPanel({ filters, onChange, onReset }: FilterPanelP
           <SearchBar value={filters.q ?? ""} onChange={(q) => update({ q: q || undefined })} />
         </div>
         <DistrictFilter value={filters.district} onChange={(district) => update({ district })} />
+        {}
+        <SortSelect value={filters.sort} onChange={(sort) => update({ sort: sort === "title" ? undefined : sort })} />
         <MultiSelectFilter
           id="filter-category"
           label="Категория"
@@ -38,11 +41,13 @@ export default function FilterPanel({ filters, onChange, onReset }: FilterPanelP
           value={filters.era ?? []}
           onChange={(era) => update({ era })}
         />
-        <ScarinessSlider
-          min={filters.minScary}
-          max={filters.maxScary}
-          onChange={(minScary, maxScary) => update({ minScary, maxScary })}
-        />
+        <div className="md:col-span-2">
+          <ScarinessSlider
+            min={filters.minScary}
+            max={filters.maxScary}
+            onChange={(minScary, maxScary) => update({ minScary, maxScary })}
+          />
+        </div>
       </div>
 
       <div className="flex justify-end">
