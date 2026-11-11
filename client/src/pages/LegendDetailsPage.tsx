@@ -1,5 +1,7 @@
 import { useLocation, useNavigate, useParams } from "react-router";
 import { Button, Chip } from "@mui/material";
+import { isNotFoundError } from "../api/getErrorMessage";
+import NotFoundPage from "./NotFoundPage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useGetLegend from "../hooks/legends/useGetLegend";
 import { CATEGORY_LABELS, ERA_LABELS } from "../constants/labels";
@@ -8,6 +10,7 @@ import LegendFacts from "../components/legends/LegendFacts";
 import SourcesList from "../components/legends/SourcesList";
 import Loader from "../components/common/Loader";
 import ErrorMessage from "../components/common/ErrorMessage";
+
 
 export default function LegendDetailsPage() {
   const { slug } = useParams(); 
@@ -18,7 +21,9 @@ export default function LegendDetailsPage() {
   const goBack = () => (location.key !== "default" ? navigate(-1) : navigate("/map"));
 
   if (isPending) return <Loader text="Зареждаме легендата..." />;
-
+  
+  if (isError && isNotFoundError(error)) return <NotFoundPage />;
+  
   if (isError) {
     return <ErrorMessage title="Не успяхме да заредим легендата" error={error} onRetry={() => refetch()} />;
   }
