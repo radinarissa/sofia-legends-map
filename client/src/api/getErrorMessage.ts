@@ -13,3 +13,7 @@ export function getErrorMessage(error: unknown): string {
   }
   return "Възникна неочаквана грешка.";
 }
+
+export function isNotFoundError(error: unknown): boolean {
+  return isAxiosError(error) && error.response?.status === 404;
+}
