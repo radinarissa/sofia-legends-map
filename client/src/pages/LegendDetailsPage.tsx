@@ -1,16 +1,18 @@
 import { useLocation, useNavigate, useParams } from "react-router";
 import { Button, Chip } from "@mui/material";
-import { isNotFoundError } from "../api/getErrorMessage";
-import NotFoundPage from "./NotFoundPage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DirectionsIcon from "@mui/icons-material/Directions";
 import useGetLegend from "../hooks/legends/useGetLegend";
+import { isNotFoundError } from "../api/getErrorMessage";
 import { CATEGORY_LABELS, ERA_LABELS } from "../constants/labels";
 import CredibilityChip from "../components/legends/CredibilityChip";
 import LegendFacts from "../components/legends/LegendFacts";
 import SourcesList from "../components/legends/SourcesList";
+import ImageGallery from "../components/legends/ImageGallery";
+import MiniMap from "../components/map/MiniMap";
 import Loader from "../components/common/Loader";
 import ErrorMessage from "../components/common/ErrorMessage";
-
+import NotFoundPage from "./NotFoundPage";
 
 export default function LegendDetailsPage() {
   const { slug } = useParams(); 
@@ -21,14 +23,15 @@ export default function LegendDetailsPage() {
   const goBack = () => (location.key !== "default" ? navigate(-1) : navigate("/map"));
 
   if (isPending) return <Loader text="Зареждаме легендата..." />;
-  
+
   if (isError && isNotFoundError(error)) return <NotFoundPage />;
-  
+
   if (isError) {
     return <ErrorMessage title="Не успяхме да заредим легендата" error={error} onRetry={() => refetch()} />;
   }
 
   const paragraphs = legend.fullStory.split("\n\n");
+  const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${legend.lat},${legend.lng}`;
 
   return (
     <article className="flex flex-col gap-6">
@@ -61,11 +64,24 @@ export default function LegendDetailsPage() {
               </p>
             ))}
           </div>
+          <ImageGallery images={legend.images} title={legend.title} />
           <SourcesList sources={legend.sources} />
         </div>
 
         <aside className="ink-card flex flex-col gap-5 self-start p-5">
           <LegendFacts legend={legend} />
+          {}
+          <MiniMap key={legend._id} lat={legend.lat} lng={legend.lng} title={legend.title} />
+          <Button
+            component="a"
+            href={directionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="outlined"
+            startIcon={<DirectionsIcon />}
+          >
+            Как да стигна дотук
+          </Button>
         </aside>
       </div>
     </article>
