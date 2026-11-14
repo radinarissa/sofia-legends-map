@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router";
 import Layout from "./components/layout/Layout";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import HomePage from "./pages/HomePage";
 import MapPage from "./pages/MapPage";
 import LegendDetailsPage from "./pages/LegendDetailsPage";
@@ -22,11 +23,20 @@ export default function App() {
         <Route path="legends/:slug" element={<LegendDetailsPage />} />
         <Route path="routes" element={<RoutesPage />} />
         <Route path="routes/:slug" element={<RouteDetailsPage />} />
-        <Route path="submit" element={<SubmitLegendPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="admin" element={<AdminPage />} />
+
+        {}
+        <Route element={<ProtectedRoute />}>
+          <Route path="submit" element={<SubmitLegendPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+        </Route>
+
+        {}
+        <Route element={<ProtectedRoute adminOnly />}>
+          <Route path="admin" element={<AdminPage />} />
+        </Route>
+
         {}
         <Route path="*" element={<NotFoundPage />} />
       </Route>
