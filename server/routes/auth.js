@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { requireAuth } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -43,6 +44,18 @@ router.post("/login", async (req, res, next) => {
     }
 
     res.json({ token: createToken(user), user });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/me", requireAuth, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(401).json({ message: "Профилът не съществува. Влезте отново." });
+    }
+    res.json(user);
   } catch (err) {
     next(err);
   }
