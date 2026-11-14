@@ -4,7 +4,13 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const legendRoutes = require("./routes/legends");
+const authRoutes = require("./routes/auth");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
+
+if (!process.env.MONGODB_URI || !process.env.JWT_SECRET) {
+  console.error("Липсва MONGODB_URI или JWT_SECRET в server/.env");
+  process.exit(1);
+}
 
 const app = express();
 
@@ -19,6 +25,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/legends", legendRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
