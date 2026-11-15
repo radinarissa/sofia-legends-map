@@ -18,3 +18,9 @@ export function validatePassword(password: string): string | null {
   if (password.length < 8) return "Паролата трябва да е поне 8 символа";
   return null;
 }
+export function validateComment(text: string): string | null {
+  const trimmed = text.trim();
+  if (trimmed.length < 2) return "Коментарът е твърде кратък";
+  if (trimmed.length > 1000) return "Коментарът може да е най-много 1000 символа";
+  return null;
+}

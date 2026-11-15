@@ -10,6 +10,7 @@ const SORT_OPTIONS = {
   scariness: { scariness: 1, title: 1 }, 
   "-scariness": { scariness: -1, title: 1 }, 
   newest: { createdAt: -1, _id: -1 },
+  "-rating": { ratingAverage: -1, ratingCount: -1, title: 1 },
 };
 
 router.get("/", async (req, res, next) => {

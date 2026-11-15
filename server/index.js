@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 
 const legendRoutes = require("./routes/legends");
 const authRoutes = require("./routes/auth");
+const commentRoutes = require("./routes/comments");
+const ratingRoutes = require("./routes/ratings");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
 
 if (!process.env.MONGODB_URI || !process.env.JWT_SECRET) {
@@ -26,7 +28,8 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/legends", legendRoutes);
 app.use("/api/auth", authRoutes);
-
+app.use("/api", commentRoutes); 
+app.use("/api", ratingRoutes); 
 app.use(notFound);
 app.use(errorHandler);
 

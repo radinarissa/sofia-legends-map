@@ -29,4 +29,5 @@ export const SORT_LABELS: Record<SortOption, string> = {
   scariness: "Най-малко страшни",
   "-scariness": "Най-страшни",
   newest: "Най-нови",
+  "-rating": "Най-високо оценени",
 };
