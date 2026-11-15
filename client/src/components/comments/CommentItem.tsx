@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Alert, Button } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutlined";
 import type { LegendComment } from "../../types/comment";
 import useAuth from "../../hooks/auth/useAuth";
 import useUpdateComment from "../../hooks/comments/useUpdateComment";
+import useDeleteComment from "../../hooks/comments/useDeleteComment";
+import { getErrorMessage } from "../../api/getErrorMessage";
 import { formatDate, wasEdited } from "../../utils/date";
+import ConfirmDialog from "../common/ConfirmDialog";
 import CommentForm from "./CommentForm";
 
 interface CommentItemProps {
@@ -13,11 +17,18 @@ interface CommentItemProps {
 }
 
 export default function CommentItem({ comment, legendId }: CommentItemProps) {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const updateComment = useUpdateComment(legendId);
+  const deleteComment = useDeleteComment(legendId);
   const [isEditing, setIsEditing] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const isOwner = Boolean(user && comment.author && user._id === comment.author._id);
+  const canDelete = isOwner || isAdmin;
+
+  const handleDelete = () => {
+    deleteComment.mutate(comment._id, { onSuccess: () => setConfirmOpen(false) });
+  };
 
   return (
     <li className="flex flex-col gap-2 border-b border-dashed border-ink-border pb-4 last:border-0 last:pb-0">
@@ -45,13 +56,30 @@ export default function CommentItem({ comment, legendId }: CommentItemProps) {
         <p className="m-0 whitespace-pre-line">{comment.text}</p>
       )}
 
-      {!isEditing && isOwner && (
+      {deleteComment.isError && <Alert severity="error">{getErrorMessage(deleteComment.error)}</Alert>}
+
+      {!isEditing && canDelete && (
         <div className="flex gap-1">
-          <Button size="small" startIcon={<EditOutlinedIcon />} onClick={() => setIsEditing(true)}>
-            Редактирай
+          {isOwner && (
+            <Button size="small" startIcon={<EditOutlinedIcon />} onClick={() => setIsEditing(true)}>
+              Редактирай
+            </Button>
+          )}
+          <Button size="small" color="error" startIcon={<DeleteOutlineIcon />} onClick={() => setConfirmOpen(true)}>
+            Изтрий
           </Button>
         </div>
       )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        title="Изтриване на коментар"
+        message="Сигурни ли сте, че искате да изтриете този коментар? Това не може да бъде върнато."
+        confirmLabel="Изтрий"
+        isPending={deleteComment.isPending}
+        onConfirm={handleDelete}
+        onClose={() => setConfirmOpen(false)}
+      />
     </li>
   );
 }
