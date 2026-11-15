@@ -2,7 +2,7 @@ export type Category = "ghosts" | "tunnels" | "curses" | "mysteries" | "myths";
 export type Era = "ancient" | "medieval" | "ottoman" | "kingdom" | "socialism" | "modern";
 export type Credibility = "confirmed" | "partial" | "legend";
 export type LegendStatus = "pending" | "approved" | "rejected";
-export type SortOption = "title" | "-title" | "scariness" | "-scariness" | "newest";
+export type SortOption = "title" | "-title" | "scariness" | "-scariness" | "newest" | "-rating";
 
 export interface Source {
   title: string;
@@ -30,6 +30,8 @@ export interface LegendSummary {
   credibility: Credibility;
   images: LegendImage[];
   status: LegendStatus;
+  ratingAverage: number;
+  ratingCount: number;
   createdAt: string;
   updatedAt: string;
 }

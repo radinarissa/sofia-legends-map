@@ -9,6 +9,7 @@ import CredibilityChip from "../components/legends/CredibilityChip";
 import LegendFacts from "../components/legends/LegendFacts";
 import SourcesList from "../components/legends/SourcesList";
 import ImageGallery from "../components/legends/ImageGallery";
+import LegendRating from "../components/ratings/LegendRating";
 import CommentSection from "../components/comments/CommentSection";
 import MiniMap from "../components/map/MiniMap";
 import Loader from "../components/common/Loader";
@@ -71,6 +72,9 @@ export default function LegendDetailsPage() {
 
         <aside className="ink-card flex flex-col gap-5 self-start p-5">
           <LegendFacts legend={legend} />
+          <div className="border-t border-dashed border-ink-border pt-4">
+            <LegendRating legend={legend} />
+          </div>
           {}
           <MiniMap key={legend._id} lat={legend.lat} lng={legend.lng} title={legend.title} />
           <Button
@@ -86,7 +90,6 @@ export default function LegendDetailsPage() {
         </aside>
       </div>
 
-      {}
       <CommentSection legendId={legend._id} />
     </article>
   );
