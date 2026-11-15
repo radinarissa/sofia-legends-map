@@ -9,6 +9,7 @@ import CredibilityChip from "../components/legends/CredibilityChip";
 import LegendFacts from "../components/legends/LegendFacts";
 import SourcesList from "../components/legends/SourcesList";
 import ImageGallery from "../components/legends/ImageGallery";
+import CommentSection from "../components/comments/CommentSection";
 import MiniMap from "../components/map/MiniMap";
 import Loader from "../components/common/Loader";
 import ErrorMessage from "../components/common/ErrorMessage";
@@ -84,6 +85,9 @@ export default function LegendDetailsPage() {
           </Button>
         </aside>
       </div>
+
+      {}
+      <CommentSection legendId={legend._id} />
     </article>
   );
 }
