@@ -15,6 +15,8 @@ import MiniMap from "../components/map/MiniMap";
 import Loader from "../components/common/Loader";
 import ErrorMessage from "../components/common/ErrorMessage";
 import NotFoundPage from "./NotFoundPage";
+import FavoriteButton from "../components/favorites/FavoriteButton";
+
 
 export default function LegendDetailsPage() {
   const { slug } = useParams(); 
@@ -40,10 +42,11 @@ export default function LegendDetailsPage() {
       {}
       <title>{`${legend.title} · Легендите на София`}</title>
 
-      <div>
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <Button startIcon={<ArrowBackIcon />} onClick={goBack} color="inherit">
           Назад
         </Button>
+        <FavoriteButton legendId={legend._id} withLabel />
       </div>
 
       <header className="flex flex-col gap-3">

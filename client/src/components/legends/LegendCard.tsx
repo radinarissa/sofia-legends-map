@@ -4,6 +4,7 @@ import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import type { LegendSummary } from "../../types/legend";
 import { CATEGORY_LABELS, ERA_LABELS } from "../../constants/labels";
 import ScarinessDots from "../common/ScarinessDots";
+import FavoriteButton from "../favorites/FavoriteButton";
 
 interface LegendCardProps {
   legend: LegendSummary;
@@ -11,10 +12,11 @@ interface LegendCardProps {
 
 export default function LegendCard({ legend }: LegendCardProps) {
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" sx={{ position: "relative" }}>
       <CardActionArea component={Link} to={`/legends/${legend.slug}`}>
         <CardContent className="flex flex-col gap-2">
-          <div className="flex flex-wrap gap-1.5">
+          {/* pr-12: място отдясно за сърцето */}
+          <div className="flex flex-wrap gap-1.5 pr-12">
             <Chip label={CATEGORY_LABELS[legend.category]} size="small" color="primary" />
             <Chip label={ERA_LABELS[legend.era]} size="small" variant="outlined" />
           </div>
@@ -32,6 +34,9 @@ export default function LegendCard({ legend }: LegendCardProps) {
           </div>
         </CardContent>
       </CardActionArea>
+
+      {}
+      <FavoriteButton legendId={legend._id} className="absolute right-2 top-2" />
     </Card>
   );
 }
