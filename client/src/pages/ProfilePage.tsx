@@ -1,17 +1,23 @@
-import { Link } from "react-router";
-import { Button, Chip } from "@mui/material";
+import { Link, useLocation, useNavigate } from "react-router";
+import { Alert, Button, Chip, Snackbar } from "@mui/material";
 import useAuth from "../hooks/auth/useAuth";
 import useGetFavorites from "../hooks/favorites/useGetFavorites";
 import LegendCard from "../components/legends/LegendCard";
+import MySubmissions from "../components/profile/MySubmissions";
 import Loader from "../components/common/Loader";
 import ErrorMessage from "../components/common/ErrorMessage";
 
 export default function ProfilePage() {
   const { user, isAdmin } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
   const { data: favorites = [], isPending, isError, error, refetch } = useGetFavorites();
 
+  const message = (location.state as { message?: string } | null)?.message;
+  const closeMessage = () => navigate(location.pathname, { replace: true, state: null });
+
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-10">
       <title>Моят профил · Легендите на София</title>
 
       <header className="ink-card flex flex-col gap-2 p-5 md:p-6">
@@ -54,6 +60,20 @@ export default function ProfilePage() {
             </ul>
           ))}
       </section>
+
+      <MySubmissions />
+
+      {}
+      <Snackbar
+        open={Boolean(message)}
+        autoHideDuration={6000}
+        onClose={closeMessage}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert severity="success" variant="filled" onClose={closeMessage}>
+          {message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

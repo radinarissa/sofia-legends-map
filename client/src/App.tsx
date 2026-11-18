@@ -12,6 +12,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import EditLegendPage from "./pages/EditLegendPage";
 
 export default function App() {
   return (
@@ -39,6 +40,13 @@ export default function App() {
 
         {}
         <Route path="*" element={<NotFoundPage />} />
+
+        {}
+        <Route element={<ProtectedRoute />}>
+          <Route path="submit" element={<SubmitLegendPage />} />
+          <Route path="my-legends/:id/edit" element={<EditLegendPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+        </Route>
       </Route>
     </Routes>
   );
