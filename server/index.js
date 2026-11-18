@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 const commentRoutes = require("./routes/comments");
 const ratingRoutes = require("./routes/ratings");
 const userRoutes = require("./routes/users");
+const adminRoutes = require("./routes/admin");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
 
 if (!process.env.MONGODB_URI || !process.env.JWT_SECRET) {
@@ -32,6 +33,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api", commentRoutes); 
 app.use("/api", ratingRoutes); 
 app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

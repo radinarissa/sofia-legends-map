@@ -39,6 +39,7 @@ export interface LegendSummary {
 export interface Legend extends LegendSummary {
   fullStory: string;
   sources: Source[];
+  rejectionReason?: string;
 }
 
 export interface LegendFilters {
@@ -50,4 +51,29 @@ export interface LegendFilters {
   maxScary?: number;
   q?: string;
   sort?: SortOption;
+}
+
+export interface LegendInput {
+  title: string;
+  shortDescription: string;
+  fullStory: string;
+  address: string;
+  district: string;
+  lat: number;
+  lng: number;
+  category: Category;
+  era: Era;
+  scariness: number;
+  credibility: Credibility;
+  sources: Source[];
+}
+
+export interface LegendAuthor {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+export interface AdminLegend extends Legend {
+  author: LegendAuthor | null;
 }

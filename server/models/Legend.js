@@ -4,7 +4,12 @@ const { CATEGORIES, ERAS, CREDIBILITY, STATUSES } = require("../constants");
 const sourceSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
-    url: { type: String, required: true, trim: true },
+    url: {
+      type: String,
+      required: true,
+      trim: true,
+      match: [/^https?:\/\/\S+$/, "Линкът на източника трябва да започва с http:// или https://"],
+    },
   },
   { _id: false }
 );
@@ -47,6 +52,8 @@ const legendSchema = new mongoose.Schema(
     status: { type: String, enum: STATUSES, default: "pending" },
     ratingAverage: { type: Number, default: 0, min: 0, max: 5 },
     ratingCount: { type: Number, default: 0, min: 0 },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    rejectionReason: { type: String, trim: true, maxlength: 500 },
   },
   { timestamps: true } 
 );
