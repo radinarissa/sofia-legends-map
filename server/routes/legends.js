@@ -1,17 +1,43 @@
 const express = require("express");
 const Legend = require("../models/Legend");
 const { CATEGORIES, ERAS, CREDIBILITY } = require("../constants");
+const { requireAuth } = require("../middleware/auth");
+const validateId = require("../middleware/validateId");
+const { uniqueSlug } = require("../utils/slugify");
 
 const router = express.Router();
 
 const SORT_OPTIONS = {
-  title: { title: 1 }, 
-  "-title": { title: -1 }, 
-  scariness: { scariness: 1, title: 1 }, 
-  "-scariness": { scariness: -1, title: 1 }, 
+  title: { title: 1 },
+  "-title": { title: -1 },
+  scariness: { scariness: 1, title: 1 },
+  "-scariness": { scariness: -1, title: 1 },
   newest: { createdAt: -1, _id: -1 },
   "-rating": { ratingAverage: -1, ratingCount: -1, title: 1 },
 };
+
+const EDITABLE_FIELDS = [
+  "title",
+  "shortDescription",
+  "fullStory",
+  "address",
+  "district",
+  "lat",
+  "lng",
+  "category",
+  "era",
+  "scariness",
+  "credibility",
+  "sources",
+];
+
+function pickLegendFields(body = {}) {
+  const data = {};
+  for (const field of EDITABLE_FIELDS) {
+    if (body[field] !== undefined) data[field] = body[field];
+  }
+  return data;
+}
 
 router.get("/", async (req, res, next) => {
   try {
@@ -64,8 +90,8 @@ router.get("/", async (req, res, next) => {
     }
 
     const legends = await Legend.find(filter)
-      .select("-fullStory -sources -__v") 
-      .collation({ locale: "bg" }) 
+      .select("-fullStory -sources -__v")
+      .collation({ locale: "bg" })
       .sort(sort);
 
     res.json(legends);
@@ -83,14 +109,52 @@ router.get("/districts", async (req, res, next) => {
   }
 });
 
-router.get("/:slug", async (req, res, next) => {
+router.get("/mine", requireAuth, async (req, res, next) => {
   try {
-    const legend = await Legend.findOne({ slug: req.params.slug, status: "approved" }).select("-__v");
+    const legends = await Legend.find({ author: req.user.id }).sort({ createdAt: -1 }).select("-__v");
+    res.json(legends);
+  } catch (err) {
+    next(err);
+  }
+});
 
+router.get("/mine/:id", requireAuth, validateId("id"), async (req, res, next) => {
+  try {
+    const legend = await Legend.findOne({ _id: req.params.id, author: req.user.id }).select("-__v");
     if (!legend) {
       return res.status(404).json({ message: "Легендата не е намерена" });
     }
     res.json(legend);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/:slug", async (req, res, next) => {
+  try {
+    const legend = await Legend.findOne({ slug: req.params.slug, status: "approved" }).select("-__v");
+    if (!legend) {
+      return res.status(404).json({ message: "Легендата не е намерена" });
+    }
+    res.json(legend);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/", requireAuth, async (req, res, next) => {
+  try {
+    const data = pickLegendFields(req.body);
+
+    const legend = new Legend({
+      ...data,
+      slug: await uniqueSlug(Legend, data.title ?? ""),
+      author: req.user.id, 
+      status: "pending", 
+    });
+    await legend.save(); 
+
+    res.status(201).json(legend);
   } catch (err) {
     next(err);
   }
