@@ -160,4 +160,28 @@ router.post("/", requireAuth, async (req, res, next) => {
   }
 });
 
+router.put("/:id", requireAuth, validateId("id"), async (req, res, next) => {
+  try {
+    const legend = await Legend.findById(req.params.id);
+    if (!legend) {
+      return res.status(404).json({ message: "Легендата не е намерена" });
+    }
+    if (!legend.author || legend.author.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Можете да редактирате само своите предложения" });
+    }
+    if (legend.status === "approved") {
+      return res.status(409).json({ message: "Одобрените легенди не могат да се редактират" });
+    }
+
+    Object.assign(legend, pickLegendFields(req.body));
+    legend.status = "pending"; 
+    legend.rejectionReason = undefined;
+    await legend.save();
+
+    res.json(legend);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
