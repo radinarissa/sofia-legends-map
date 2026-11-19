@@ -92,3 +92,26 @@
 .legend-pin:hover span {
   transform: scale(1.2);
 }
+
+.route-pin {
+  background: transparent;
+  border: none;
+}
+
+.route-pin span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--ink-accent);
+  color: #ffffff;
+  font: 700 14px/1 var(--ink-font-body);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(29, 36, 51, 0.35);
+}
+
+.route-line {
+  stroke: var(--ink-accent);
+}
