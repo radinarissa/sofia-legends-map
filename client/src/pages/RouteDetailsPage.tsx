@@ -1,10 +1,11 @@
 import { useLocation, useNavigate, useParams } from "react-router";
 import { Alert, Button, Chip } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DirectionsIcon from "@mui/icons-material/Directions";
 import useGetRoute from "../hooks/routes/useGetRoute";
 import { isNotFoundError } from "../api/getErrorMessage";
 import { TRAVEL_MODE_LABELS } from "../constants/labels";
-import { formatDuration, formatKm, routeDistanceKm } from "../utils/geo";
+import { directionsUrl, formatDuration, formatKm, routeDistanceKm } from "../utils/geo";
 import RouteMap from "../components/map/RouteMap";
 import RouteStopsList from "../components/routes/RouteStopsList";
 import Loader from "../components/common/Loader";
@@ -46,6 +47,21 @@ export default function RouteDetailsPage() {
         <h1 className="m-0 text-3xl font-semibold md:text-5xl">{walk.title}</h1>
         <p className="m-0 max-w-3xl text-lg text-ink-muted">{walk.description}</p>
         {walk.bestTime && <p className="m-0 text-sm text-ink-muted">Най-подходящо време: {walk.bestTime}</p>}
+
+        {stops.length >= 2 && (
+          <div>
+            <Button
+              component="a"
+              href={directionsUrl(stops, walk.travelMode)}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="contained"
+              startIcon={<DirectionsIcon />}
+            >
+              Започни разходката
+            </Button>
+          </div>
+        )}
       </header>
 
       {stops.length < 2 ? (

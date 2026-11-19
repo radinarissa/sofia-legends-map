@@ -33,3 +33,20 @@ export function formatDuration(minutes: number): string {
   const rest = minutes % 60;
   return rest === 0 ? `${hours} ч` : `${hours} ч ${rest} мин`;
 }
+
+export function directionsUrl(points: LatLngPoint[], mode: "walking" | "transit"): string {
+  const format = (point: LatLngPoint) => `${point.lat},${point.lng}`;
+  const params = new URLSearchParams({
+    api: "1",
+    origin: format(points[0]),
+    destination: format(points[points.length - 1]),
+    travelmode: mode,
+  });
+
+  const middle = points.slice(1, -1);
+  if (mode === "walking" && middle.length > 0) {
+    params.set("waypoints", middle.map(format).join("|"));
+  }
+
+  return `https://www.google.com/maps/dir/?${params.toString()}`;
+}
