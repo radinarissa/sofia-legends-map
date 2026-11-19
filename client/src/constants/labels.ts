@@ -1,4 +1,5 @@
 import type { Category, Credibility, Era, SortOption } from "../types/legend";
+import type { TravelMode } from "../types/route";
 
 export const CATEGORY_LABELS: Record<Category, string> = {
   ghosts: "Призраци",
@@ -30,4 +31,9 @@ export const SORT_LABELS: Record<SortOption, string> = {
   "-scariness": "Най-страшни",
   newest: "Най-нови",
   "-rating": "Най-високо оценени",
+};
+
+export const TRAVEL_MODE_LABELS: Record<TravelMode, string> = {
+  walking: "Пеша",
+  transit: "С градски транспорт",
 };
