@@ -1,5 +1,6 @@
 import HeroSection from "../components/home/HeroSection";
 import DailyLegend from "../components/home/DailyLegend";
+import FeaturedLegends from "../components/home/FeaturedLegends";
 
 export default function HomePage() {
   return (
@@ -7,6 +8,7 @@ export default function HomePage() {
       <title>Легендите на София</title>
       <HeroSection />
       <DailyLegend />
+      <FeaturedLegends />
     </div>
   );
 }
