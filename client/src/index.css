@@ -115,3 +115,24 @@
 .route-line {
   stroke: var(--ink-accent);
 }
+
+.legend-cluster {
+  background: transparent;
+  border: none;
+}
+
+.legend-cluster span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--ink-accent);
+  color: #ffffff;
+  font: 700 14px/1 var(--ink-font-body);
+  border: 3px solid #ffffff;
+  box-shadow:
+    0 0 0 6px rgba(224, 122, 95, 0.25),
+    0 2px 8px rgba(29, 36, 51, 0.3);
+}

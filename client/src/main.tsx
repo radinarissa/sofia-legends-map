@@ -8,10 +8,8 @@ import AuthProvider from "./context/AuthProvider";
 import { theme } from "./theme";
 import "leaflet/dist/leaflet.css";
 import "./index.css";
-import "leaflet/dist/leaflet.css";
 import "react-leaflet-cluster/dist/assets/MarkerCluster.css";
 import "react-leaflet-cluster/dist/assets/MarkerCluster.Default.css";
-import "./index.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {

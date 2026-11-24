@@ -2,6 +2,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import type { LegendSummary } from "../../types/legend";
 import LegendMarker from "./LegendMarker";
+import { createClusterIcon } from "./clusterIcon";
 
 const SOFIA_CENTER: [number, number] = [42.6977, 23.3219];
 
@@ -18,7 +19,12 @@ export default function LegendMap({ legends }: LegendMapProps) {
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {}
-        <MarkerClusterGroup chunkedLoading showCoverageOnHover={false} maxClusterRadius={50}>
+        <MarkerClusterGroup
+          chunkedLoading
+          showCoverageOnHover={false}
+          maxClusterRadius={50}
+          iconCreateFunction={createClusterIcon}
+        >
           {legends.map((legend) => (
             <LegendMarker key={legend._id} legend={legend} />
           ))}
