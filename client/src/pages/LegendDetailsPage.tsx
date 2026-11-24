@@ -79,7 +79,7 @@ export default function LegendDetailsPage() {
             <LegendRating legend={legend} />
           </div>
           {}
-          <MiniMap key={legend._id} lat={legend.lat} lng={legend.lng} title={legend.title} />
+          <MiniMap key={legend._id} lat={legend.lat} lng={legend.lng} title={legend.title} category={legend.category} />
           <Button
             component="a"
             href={directionsUrl}
