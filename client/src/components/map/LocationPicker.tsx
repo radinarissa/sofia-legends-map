@@ -1,5 +1,6 @@
-import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+import { MapContainer, Marker, useMapEvents } from "react-leaflet";
 import { legendIcon } from "./legendIcon";
+import BaseTileLayer from "./BaseTileLayer";
 
 export interface LatLng {
   lat: number;
@@ -42,10 +43,7 @@ export default function LocationPicker({ value, onChange, error }: LocationPicke
           maxBoundsViscosity={1}
           className="h-72 w-full"
         >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+          <BaseTileLayer />
           <ClickHandler onPick={onChange} />
           {value && <Marker position={[value.lat, value.lng]} icon={legendIcon} />}
         </MapContainer>

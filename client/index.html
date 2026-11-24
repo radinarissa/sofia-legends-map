@@ -9,6 +9,17 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Source+Sans+3:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <script>
+      try {
+        var mode = localStorage.getItem("sofia-legends-theme");
+        if (mode !== "light" && mode !== "night") {
+          mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "light";
+        }
+        document.documentElement.dataset.theme = mode;
+      } catch (error) {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
     <title>Легендите на София</title>
   </head>
   <body>
