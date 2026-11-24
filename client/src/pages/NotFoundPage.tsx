@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { Button } from "@mui/material";
+import SurpriseButton from "../components/common/SurpriseButton";
 
 export default function NotFoundPage() {
   return (
@@ -13,9 +14,7 @@ export default function NotFoundPage() {
         <Button component={Link} to="/" variant="contained">
           Към началото
         </Button>
-        <Button component={Link} to="/map" variant="outlined">
-          Отвори картата
-        </Button>
+        <SurpriseButton size="medium" />
       </div>
     </section>
   );

@@ -109,6 +109,54 @@ router.get("/districts", async (req, res, next) => {
   }
 });
 
+function sofiaDate() {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Sofia" }).format(new Date());
+}
+
+router.get("/daily", async (req, res, next) => {
+  try {
+    const date = sofiaDate();
+    const count = await Legend.countDocuments({ status: "approved" });
+    if (count === 0) {
+      return res.status(404).json({ message: "Още няма легенди" });
+    }
+
+    const [year, month, day] = date.split("-").map(Number);
+    const dayNumber = Math.floor(Date.UTC(year, month - 1, day) / 86400000);
+    const index = dayNumber % count;
+
+    const [legend] = await Legend.find({ status: "approved" })
+      .sort({ _id: 1 }) 
+      .skip(index)
+      .limit(1)
+      .select("-fullStory -sources -__v");
+
+    res.json({ date, legend });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/random", async (req, res, next) => {
+  try {
+    const match = { status: "approved" };
+    if (req.query.exclude) {
+      match.slug = { $ne: String(req.query.exclude) }; 
+    }
+    const [legend] = await Legend.aggregate([
+      { $match: match },
+      { $sample: { size: 1 } },
+      { $project: { slug: 1, title: 1 } },
+    ]);
+
+    if (!legend) {
+      return res.status(404).json({ message: "Няма легенди" });
+    }
+    res.json(legend);
+  } catch (err) {
+    next(err);
+  }
+});
 router.get("/mine", requireAuth, async (req, res, next) => {
   try {
     const legends = await Legend.find({ author: req.user.id }).sort({ createdAt: -1 }).select("-__v");
