@@ -191,3 +191,16 @@
     transition: none;
   }
 }
+
+.legend-cluster-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--ink-accent);
+  color: #ffffff;
+  font: 700 12px/1 var(--ink-font-body);
+  box-shadow: 0 0 0 3px rgba(224, 122, 95, 0.25);
+}
