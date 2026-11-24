@@ -17,6 +17,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import useAuth from "../../hooks/auth/useAuth";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { to: "/", label: "Начало" },
@@ -101,7 +102,7 @@ export default function Navbar() {
           )}
         </Box>
 
-        {}
+        <ThemeToggle />
         <IconButton sx={{ display: { md: "none" } }} onClick={() => setDrawerOpen(true)} aria-label="Отвори менюто">
           <MenuIcon />
         </IconButton>
