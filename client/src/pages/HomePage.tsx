@@ -1,6 +1,8 @@
 import HeroSection from "../components/home/HeroSection";
 import DailyLegend from "../components/home/DailyLegend";
 import FeaturedLegends from "../components/home/FeaturedLegends";
+import TopicLinks from "../components/home/TopicLinks";
+import RoutesTeaser from "../components/home/RoutesTeaser";
 
 export default function HomePage() {
   return (
@@ -9,6 +11,8 @@ export default function HomePage() {
       <HeroSection />
       <DailyLegend />
       <FeaturedLegends />
+      <TopicLinks />
+      <RoutesTeaser />
     </div>
   );
 }
