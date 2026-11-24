@@ -53,7 +53,7 @@ export default function Navbar() {
       position="sticky"
       elevation={0}
       color="transparent"
-      sx={{ backgroundColor: "rgba(255,255,255,0.85)", backdropFilter: "blur(8px)", borderBottom: "1px solid var(--ink-border)" }}
+      sx={{backgroundColor: "var(--ink-header-bg)", backdropFilter: "blur(8px)", borderBottom: "1px solid var(--ink-border)" }}
     >
       <Toolbar className="mx-auto w-full max-w-6xl">
         <NavLink to="/" className="font-heading text-xl font-semibold text-ink-text no-underline">

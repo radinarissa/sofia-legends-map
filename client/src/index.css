@@ -18,6 +18,18 @@
   --ink-cat-curses: #8e3b5a;
   --ink-cat-mysteries: #2f7f7a;
   --ink-cat-myths: #e07a5f;
+  --ink-header-bg: rgba(255, 255, 255, 0.85);
+}
+
+:root[data-theme="night"] {
+  --ink-bg-from: #0f1626;
+  --ink-bg-to: #1d2c4a;
+  --ink-surface: #18223a;
+  --ink-text: #e8ecf4;
+  --ink-muted: #a3adc2;
+  --ink-border: #2e3b57;
+  --ink-header-bg: rgba(15, 22, 38, 0.85);
+  color-scheme: dark; 
 }
 
 @theme inline {
@@ -203,4 +215,10 @@
   color: #ffffff;
   font: 700 12px/1 var(--ink-font-body);
   box-shadow: 0 0 0 3px rgba(224, 122, 95, 0.25);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--ink-surface);
+  color: var(--ink-text);
 }

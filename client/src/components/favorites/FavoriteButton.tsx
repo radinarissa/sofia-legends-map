@@ -59,8 +59,8 @@ export default function FavoriteButton({ legendId, withLabel = false, className 
         className={className}
         sx={{
           color: isFavorite ? "var(--ink-accent)" : "var(--ink-muted)",
-          bgcolor: "rgba(255,255,255,0.9)",
-          "&:hover": { bgcolor: "#ffffff" },
+          bgcolor: "var(--ink-surface)",
+          "&:hover": { bgcolor: "var(--ink-surface)" },
         }}
       >
         <FavoriteIcon />
