@@ -13,6 +13,11 @@
   --ink-radius: 14px;
   --ink-font-heading: "Fraunces", Georgia, serif;
   --ink-font-body: "Source Sans 3", system-ui, sans-serif;
+  --ink-cat-ghosts: #5b6c8f;
+  --ink-cat-tunnels: #7a6450;
+  --ink-cat-curses: #8e3b5a;
+  --ink-cat-mysteries: #2f7f7a;
+  --ink-cat-myths: #e07a5f;
 }
 
 @theme inline {
@@ -114,4 +119,88 @@
 
 .route-line {
   stroke: var(--ink-accent);
+}
+
+.legend-cluster {
+  background: transparent;
+  border: none;
+}
+
+.legend-cluster span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--ink-accent);
+  color: #ffffff;
+  font: 700 14px/1 var(--ink-font-body);
+  border: 3px solid #ffffff;
+  box-shadow:
+    0 0 0 6px rgba(224, 122, 95, 0.25),
+    0 2px 8px rgba(29, 36, 51, 0.3);
+}
+
+.category-bg--ghosts {
+  background: var(--ink-cat-ghosts);
+}
+.category-bg--tunnels {
+  background: var(--ink-cat-tunnels);
+}
+.category-bg--curses {
+  background: var(--ink-cat-curses);
+}
+.category-bg--mysteries {
+  background: var(--ink-cat-mysteries);
+}
+.category-bg--myths {
+  background: var(--ink-cat-myths);
+}
+
+.category-pin {
+  background: transparent;
+  border: none;
+}
+
+.category-pin span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #ffffff;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(29, 36, 51, 0.35);
+  transition: transform 0.15s;
+}
+
+.category-pin:hover span {
+  transform: scale(1.15);
+}
+
+.category-pin svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-pin span {
+    transition: none;
+  }
+}
+
+.legend-cluster-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--ink-accent);
+  color: #ffffff;
+  font: 700 12px/1 var(--ink-font-body);
+  box-shadow: 0 0 0 3px rgba(224, 122, 95, 0.25);
 }
