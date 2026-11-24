@@ -1,4 +1,5 @@
 import { MapContainer, TileLayer } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-cluster";
 import type { LegendSummary } from "../../types/legend";
 import LegendMarker from "./LegendMarker";
 
@@ -11,15 +12,17 @@ interface LegendMapProps {
 export default function LegendMap({ legends }: LegendMapProps) {
   return (
     <div className="ink-card overflow-hidden">
-      {}
       <MapContainer center={SOFIA_CENTER} zoom={12} scrollWheelZoom className="h-[60vh] w-full md:h-[560px]">
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {legends.map((legend) => (
-          <LegendMarker key={legend._id} legend={legend} />
-        ))}
+        {}
+        <MarkerClusterGroup chunkedLoading showCoverageOnHover={false} maxClusterRadius={50}>
+          {legends.map((legend) => (
+            <LegendMarker key={legend._id} legend={legend} />
+          ))}
+        </MarkerClusterGroup>
       </MapContainer>
     </div>
   );
