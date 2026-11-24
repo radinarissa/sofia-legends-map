@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { Button } from "@mui/material";
 import useGetLegends from "../../hooks/legends/useGetLegends";
 import useGetRoutes from "../../hooks/routes/useGetRoutes";
+import SurpriseButton from "../common/SurpriseButton";
 
 export default function HeroSection() {
   const { data: legends } = useGetLegends();
@@ -20,13 +21,11 @@ export default function HeroSection() {
         софиянци си разказват от векове, и тръгнете по техните следи.
       </p>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap items-start gap-3">
         <Button component={Link} to="/map" variant="contained" size="large">
           Отвори картата
         </Button>
-        <Button component={Link} to="/routes" variant="outlined" size="large">
-          Нощни разходки
-        </Button>
+        <SurpriseButton />
       </div>
 
       {legends && walks && (
