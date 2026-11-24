@@ -1,9 +1,10 @@
-import { MapContainer, TileLayer } from "react-leaflet";
+import {MapContainer} from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import type { LegendSummary } from "../../types/legend";
 import LegendMarker from "./LegendMarker";
 import MapKey from "./MapKey";
 import { createClusterIcon } from "./clusterIcon";
+import BaseTileLayer from "./BaseTileLayer";
 
 const SOFIA_CENTER: [number, number] = [42.6977, 23.3219];
 
@@ -15,10 +16,7 @@ export default function LegendMap({ legends }: LegendMapProps) {
   return (
     <div className="ink-card overflow-hidden">
       <MapContainer center={SOFIA_CENTER} zoom={12} scrollWheelZoom className="h-[60vh] w-full md:h-[520px]">
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <BaseTileLayer />
         {}
         <MarkerClusterGroup
           chunkedLoading
